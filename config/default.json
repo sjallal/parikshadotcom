@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://saqib123:saqib123@parikshadotcom-cluster0.dq2yf.mongodb.net/parikshaDB01?retryWrites=true&w=majority",
+  "jwtSecret": "parikchado"
+}
