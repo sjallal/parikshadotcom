@@ -1,0 +1,241 @@
+/* COMMON CSS */
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin: auto;
+}
+.primary-text {
+  color: #079992;
+}
+img {
+  width: 100%;
+}
+#page {
+  margin-bottom: 30px;
+}
+#sub-header {
+  background: #000;
+  color: #fff;
+}
+button {
+  cursor: pointer;
+}
+
+/* NAVBAR */
+#main-header {
+  border-bottom: 3px solid #079992;
+}
+#navbar {
+  text-transform: uppercase;
+}
+#main-header a {
+  text-decoration: none;
+  color: #333;
+}
+#navbar li {
+  display: inline;
+  list-style: none;
+  margin-right: 15px;
+}
+#navbar a:hover {
+  color: #079992;
+}
+#navbar .fas {
+  color: #079992;
+}
+
+/* SHOWCASE */
+#showcase {
+  background: url("../img/showcase.jpg") no-repeat center center;
+  background-size: cover;
+  border-bottom: 3px solid #079992;
+  margin-bottom: 30px;
+}
+#showcase .row {
+  height: 600px;
+}
+.showcase {
+  background: #333;
+  color: aliceblue;
+  border-radius: 40px;
+  opacity: 0.8;
+}
+
+/* FEATURES */
+#features .fas {
+  font-size: 60px;
+  color: #079992;
+  margin-bottom: 7px;
+}
+#features h3 {
+  margin: 0;
+}
+#features p {
+  color: #333;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+/* COMPANY */
+#company {
+  background: #333;
+  color: #fff;
+}
+#company .row {
+  padding-bottom: 15px;
+}
+#company ul {
+  padding-inline-start: 0;
+}
+#company li {
+  list-style: none;
+}
+#company input {
+  width: 50%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+#company button {
+  width: 50%;
+  padding: 10px;
+  background: #079992;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+}
+#company button:hover {
+  width: 50%;
+  padding: 10px, 0px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* FOOTER */
+#main-footer {
+  background: #079992;
+  color: #fff;
+}
+
+/* SIGNUP SIGNIN PROFILE */
+.signup form,
+.signin form,
+.profile form,
+.edit-profile form {
+  background: #333;
+  color: #fff;
+  padding: 20px;
+}
+.signup form input,
+.signin form input,
+.profile form input,
+.edit-profile form input {
+  width: 50%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+.signup form button,
+.signin form button,
+.profile form button,
+.edit-profile form button {
+  width: 50%;
+  padding: 10px 0;
+  border: 0;
+  background: #079992;
+  color: #fff;
+  cursor: pointer;
+}
+
+.signup form button:hover,
+.signin form button:hover,
+.profile form button:hover,
+.edit-profile form button:hover {
+  width: 50%;
+  padding: 10px 0;
+  border: 0;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+form li {
+  list-style: none;
+}
+
+/* CLASSES */
+#classes-nav {
+  background: #333;
+}
+#classes-nav a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#classes-nav .col {
+  padding: 15px;
+}
+#classes-nav .col:hover,
+.current {
+  background: #000;
+}
+
+.classes .row {
+  border: 2px solid #079992;
+  margin: 5px;
+}
+
+#sub-header #create-class {
+  text-decoration: none;
+  color: #fff;
+  background: #079992;
+  padding: 1px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+#sub-header #create-class:hover {
+  text-decoration: none;
+  color: #fff;
+  background: #222;
+  padding: 1px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+#sub-header .go-to-class {
+  display: inline;
+  text-decoration: none;
+  color: #fff;
+  background: #000;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+#sub-header .go-to-class:hover {
+  display: inline;
+  text-decoration: none;
+  color: #079992;
+  background: #000;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+#sub-header h1 {
+  margin: 5px;
+}
+
+.col-btn {
+  background: #079992;
+  color: #fff;
+  padding: 3px;
+}
+.col-btn:hover {
+  background: #222;
+  color: #fff;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.question-list {
+  border: 2px solid #079992;
+  margin-bottom: 5px;
+}
