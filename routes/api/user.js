@@ -3,19 +3,14 @@ var router = express.Router();
 const { check } = require("express-validator");
 
 // Importing controllers.
-const {
-  signup,
-  signin,
-  getUserById,
-  getUser,
-  updateUser,
-  deleteUser,
-} = require("../../controllers/user");
+const { signup, getUserById, getUser, updateUser, deleteUser } = require("../../controllers/user");
 const isLoggedIn = require("../../middlewares/isLoggedIn");
 
-// Sign-up route.
+// @route:   POST api/user
+// @desc:    SignUp user.
+// @access:  Public(Won't require any token to access this route).
 router.post(
-  "/signup",
+  "/",
   [
     check("fname", "First name is required.").not().isEmpty(),
     check("email", "Email is required.").isEmail(),
@@ -24,25 +19,23 @@ router.post(
   signup
 );
 
-// Signin route.
-router.post(
-  "/signin",
-  [
-    check("email", "email is required").isEmail(),
-    check("password", "password field is required").isLength({ min: 4 }),
-  ],
-  signin
-);
-
 // Setting the user to the req-body.
 router.param("userId", getUserById);
+
+// @route:   GET api/auth
+// @desc:    Read user.
+// @access:  Public(Won't require any token to access this route).
 // Responding the whole user-document.
 router.get("/:userId", getUser);
 
-// Update user by ID.
-router.put("/update", isLoggedIn, updateUser);
+// @route:   PUT api/auth
+// @desc:    Update user.
+// @access:  Private
+router.put("/", isLoggedIn, updateUser);
 
-// Delete user.
-router.delete("/delete", isLoggedIn, deleteUser);
+// @route:   DELETE api/auth
+// @desc:    Update user.
+// @access:  Private
+router.delete("/", isLoggedIn, deleteUser);
 
 module.exports = router;
