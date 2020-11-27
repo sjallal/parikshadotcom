@@ -20,22 +20,22 @@ router.post(
 );
 
 // Setting the user to the req-body.
-router.param("userId", getUserById);
+// router.param("userId", getUserById);
 
 // @route:   GET api/auth
 // @desc:    Read user.
 // @access:  Public(Won't require any token to access this route).
 // Responding the whole user-document.
-router.get("/:userId", getUser);
+// router.get("/:userId", getUser);
 
 // @route:   PUT api/auth
 // @desc:    Update user.
 // @access:  Private
-router.put("/", isLoggedIn, updateUser);
+// router.put("/", isLoggedIn, updateUser);
 
 // @route:   DELETE api/auth
 // @desc:    Update user.
 // @access:  Private
-router.delete("/", isLoggedIn, deleteUser);
+// router.delete("/", isLoggedIn, deleteUser);
 
 module.exports = router;
