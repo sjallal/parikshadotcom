@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const quizSchema = mongoose.Schema({
-  className: {
-    type: mongoose.Types.ObjectId,
-    ref: "class",
-  },
+  // className: {
+  //   type: mongoose.Types.ObjectId,
+  //   ref: "class",
+  // },
   quizName: {
     type: String,
     required: true,

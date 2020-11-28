@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const questionSchema = mongoose.Schema({
-  questionName: {
+  question: {
     type: String,
     required: true,
   },
@@ -17,6 +17,10 @@ const questionSchema = mongoose.Schema({
       },
     },
   ],
+  marks: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = Question = mongoose.model("question", questionSchema);

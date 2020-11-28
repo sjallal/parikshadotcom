@@ -3,8 +3,18 @@ var router = express.Router();
 const { check } = require("express-validator");
 
 // Importing controllers.
-const { createClass } = require("../../controllers/class");
+const {
+  getClassById,
+  createClass,
+  classesCreated,
+  classesNotEnrolled,
+  classesEnrolled,
+  enrollIntoClass,
+} = require("../../controllers/class");
 const isLoggedIn = require("../../middlewares/isLoggedIn");
+
+// Middlewares.
+router.param("classId", getClassById);
 
 // @route:   POST api/class
 // @desc:    Create class.
@@ -19,23 +29,24 @@ router.post(
   createClass
 );
 
-// Setting the user to the req-body.
-// router.param("userId", getUserById);
-
-// @route:   GET api/auth
-// @desc:    Read user.
-// @access:  Public(Won't require any token to access this route).
-// Responding the whole user-document.
-// router.get("/:userId", getUser);
-
-// @route:   PUT api/auth
-// @desc:    Update user.
+// @route:   GET api/class/created
+// @desc:    Get all the created class.
 // @access:  Private
-// router.put("/", isLoggedIn, updateUser);
+router.get("/created", isLoggedIn, classesCreated);
 
-// @route:   DELETE api/auth
-// @desc:    Update user.
+// @route:   GET api/class/notEnrolled
+// @desc:    Get those classes in which the user is not enrolled and is not the teacher of.
 // @access:  Private
-// router.delete("/", isLoggedIn, deleteUser);
+router.get("/notEnrolled", isLoggedIn, classesNotEnrolled);
+
+// @route:   GET api/class/enrolled
+// @desc:    Get those classes in which the user is has enrolled and is not the teacher of.
+// @access:  Private
+router.get("/enrolled", isLoggedIn, classesEnrolled);
+
+// @route:   PUT api/class/enroll/:classId
+// @desc:    Enroll into class.
+// @access:  Private
+router.put("/enroll/:classId", isLoggedIn, enrollIntoClass);
 
 module.exports = router;

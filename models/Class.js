@@ -24,6 +24,12 @@ const classSchema = mongoose.Schema({
       ref: "user",
     },
   ],
+  quizes: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "quiz",
+    }
+  ]
 });
 
 module.exports = Class = mongoose.model("class", classSchema);
