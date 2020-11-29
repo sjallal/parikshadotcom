@@ -9,7 +9,6 @@ const questionSchema = mongoose.Schema({
     {
       option: {
         type: String,
-        required: true,
       },
       flag: {
         type: Boolean,

@@ -10,6 +10,7 @@ const {
   classesNotEnrolled,
   classesEnrolled,
   enrollIntoClass,
+  getAllClasses,
 } = require("../../controllers/class");
 const isLoggedIn = require("../../middlewares/isLoggedIn");
 
@@ -28,6 +29,11 @@ router.post(
   ],
   createClass
 );
+
+// @route:   GET api/class
+// @desc:    Get all the class(Only for testing purpose).
+// @access:  Private
+router.get("/", isLoggedIn, getAllClasses);
 
 // @route:   GET api/class/created
 // @desc:    Get all the created class.

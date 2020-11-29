@@ -1,4 +1,7 @@
+const { validationResult } = require("express-validator");
+const Class = require("../models/Class");
 const Quiz = require("../models/Quiz");
+const User = require("../models/User");
 
 // Applicable for teachers only.
 exports.getQuizes = async (req, res) => {
@@ -6,7 +9,10 @@ exports.getQuizes = async (req, res) => {
     if (req.cls.enrolledTeachers.indexOf(req.user.id) === -1) {
       return res.status(400).json({ msg: "Sorry you're not a teacher of this class." });
     }
-    const quizes = await Quiz.find({ classId: req.cls._id });
+    const quizes = await Quiz.find({ classId: req.cls._id }).populate({
+      path: "questions",
+      select: "question options marks",
+    });
     res.status(200).json(quizes);
   } catch (err) {
     res.status(500).json({ error: "Internal server error" });
@@ -14,6 +20,8 @@ exports.getQuizes = async (req, res) => {
 };
 
 exports.createQuiz = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ error: errors.array() });
   try {
     if (req.cls.enrolledTeachers.indexOf(req.user.id) === -1) {
       return res.status(400).json({ msg: "Sorry you're not a teacher of this class." });
@@ -28,9 +36,11 @@ exports.createQuiz = async (req, res) => {
       scores: [],
     });
     req.cls.quizes.push(newQuiz._id);
-    await cls.save();
+    await req.cls.save();
     await newQuiz.save();
+    res.status(200).json(req.cls);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Internal server error." });
   }
 };
@@ -41,13 +51,13 @@ exports.unattemptedQuizes = async (req, res) => {
     let quizList = [];
     req.cls.quizes.forEach((quiz) => {
       let attempted = false;
-      quiz.scores.forEach((score) => {
-        // console.log(score.user + " " + req.user.id);
-        if (score.user === req.user.id) {
+      for (i = 0; i < quiz.scores.length; i++) {
+        // console.log(scores[i].user + " " + req.user.id);
+        if (scores[i].user === req.user.id) {
           attempted = true;
           break;
         }
-      });
+      }
       if (attempted === false) quizList.push(quiz); // false -> The user hasn't attempted the quiz.
     });
     res.status(200).json(quizList);
@@ -60,16 +70,42 @@ exports.attemptedQuizes = async (req, res) => {
   try {
     let quizList = [];
     req.cls.quizes.forEach((quiz) => {
-      quiz.scores.forEach((score) => {
-        // console.log(score.user + " " + req.user.id);
-        if (score.user === req.user.id) {
+      for (i = 0; i < quiz.scores.length; i++) {
+        // console.log(scores[i].user + " " + req.user.id);
+        if (scores[i].user === req.user.id) {
           quizList.push(quiz);
           break;
         }
-      });
+      }
     });
     res.status(200).json(quizList);
   } catch (err) {
+    res.status(500).json({ error: "Internal server ERROR!!!" });
+  }
+};
+
+exports.submitQuiz = async (req, res) => {
+  try {
+    const cls = await Class.findById(req.quiz.classId);
+    const user = await User.findById(req.user.id);
+    if (cls.enrolledTeachers.indexOf(req.user.id) !== -1)
+      return res.status(400).json({ msg: "You can't submit the quiz as a teacher of the class." });
+    for (let i = 0; i < req.quiz.scores.length; i++) {
+      if (req.quiz.scores[i].user.toString() === req.user.id) {
+        return res.status(400).json({ msg: "You've already taken this quiz." });
+      }
+    }
+    const { score } = req.body;
+    req.quiz.scores.push({ user: req.user.id, score });
+    await req.quiz.save();
+    user.totalPercentageScore += (score / req.quiz.totalMarks) * 100;
+    user.totalQuizesAttempted += 1;
+    user.attemptedQuizes.push({ quiz: req.quiz._id, score });
+    await user.save();
+    console.log(req.user);
+    res.status(200).json(req.quiz);
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ error: "Internal server ERROR!!!" });
   }
 };

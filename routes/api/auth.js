@@ -1,8 +1,9 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const { check } = require("express-validator");
 
-const { signin } = require("../../controllers/auth");
+const { signin, getUserByToken } = require("../../controllers/auth");
+const isLoggedIn = require("../../middlewares/isLoggedIn");
 
 // @route:   POST api/auth
 // @desc:    SignIn user.
@@ -15,5 +16,7 @@ router.post(
   ],
   signin
 );
+
+router.get("/", isLoggedIn, getUserByToken);
 
 module.exports = router;

@@ -26,6 +26,18 @@ exports.createClass = async (req, res) => {
   }
 };
 
+exports.getAllClasses = async (req, res) => {
+  try {
+    const classes = await Class.find().populate({
+      path: "quizes",
+      select: "quizName description totalMarks",
+    });
+    res.status(200).json(classes);
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
+
 exports.classesCreated = async (req, res) => {
   try {
     const classes = await Class.find();
@@ -47,7 +59,7 @@ exports.classesEnrolled = async (req, res) => {
     classes.forEach((cls) => {
       if (cls.enrolledStudents.indexOf(req.user.id) !== -1) classList.push(cls);
     });
-    res.status(200).json({ classList });
+    res.status(200).json(classList);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error!!!" });
@@ -65,7 +77,7 @@ exports.classesNotEnrolled = async (req, res) => {
       )
         classList.push(cls);
     });
-    res.status(200).json({ classList });
+    res.status(200).json(classList);
   } catch (err) {
     res.status(500).json({ error: "Internal server error." });
   }
@@ -73,8 +85,10 @@ exports.classesNotEnrolled = async (req, res) => {
 
 exports.enrollIntoClass = async (req, res) => {
   try {
-    let i = req.cls.enrolledStudents.indexOf(req.user.id);
-    if (i !== -1) return res.status(400).json({ msg: "Already Enrolled!" });
+    if (req.cls.enrolledTeachers.indexOf(req.user.id) !== -1)
+      return res.status(400).json({ msg: "You can not enroll into a class created by yourself." });
+    if (req.cls.enrolledStudents.indexOf(req.user.id) !== -1)
+      return res.status(400).json({ msg: "Already Enrolled!" });
     req.cls.enrolledStudents.push(req.user.id);
     await req.cls.save();
     console.log(req.cls);

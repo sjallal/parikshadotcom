@@ -16,7 +16,7 @@ exports.createQuestion = async (req, res) => {
     req.quiz.questions.push(newQuestion._id);
     req.quiz.totalMarks += marks;
     await req.quiz.save();
-    res.status(200).json({ quiz: req.quiz });
+    res.status(200).json(newQuestion);
   } catch (err) {
     res.status(500).json({ error: "Internal server error." });
   }
