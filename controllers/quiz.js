@@ -3,9 +3,11 @@ const Quiz = require("../models/Quiz");
 // Applicable for teachers only.
 exports.getQuizes = async (req, res) => {
   try {
-    if (req.cls.enrolledTeachers.indexOf(req.user.id) !== -1)
-      return res.status(200).json(req.cls.quizes);
-    res.status(400).json({ msg: "Sorry you're not a teacher of this class." });
+    if (req.cls.enrolledTeachers.indexOf(req.user.id) === -1) {
+      return res.status(400).json({ msg: "Sorry you're not a teacher of this class." });
+    }
+    const quizes = await Quiz.find({ classId: req.cls._id });
+    res.status(200).json(quizes);
   } catch (err) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -18,11 +20,12 @@ exports.createQuiz = async (req, res) => {
     }
     const { quizName, description } = req.body;
     let newQuiz = new Quiz({
+      classId: req.cls._id,
       quizName,
       description,
       totalMarks: 0,
       questions: [],
-      marksObtained: [],
+      scores: [],
     });
     req.cls.quizes.push(newQuiz._id);
     await cls.save();
@@ -37,15 +40,15 @@ exports.unattemptedQuizes = async (req, res) => {
   try {
     let quizList = [];
     req.cls.quizes.forEach((quiz) => {
-      let flag = false;
-      quiz.marksObtained.forEach((obj) => {
-        // console.log(obj.user + " " + req.user.id);
-        if (obj.user === req.user.id) {
-          flag = true;
+      let attempted = false;
+      quiz.scores.forEach((score) => {
+        // console.log(score.user + " " + req.user.id);
+        if (score.user === req.user.id) {
+          attempted = true;
           break;
         }
       });
-      if (flag === false) quizList.push(quiz); // false -> The user hasn't attempted the quiz.
+      if (attempted === false) quizList.push(quiz); // false -> The user hasn't attempted the quiz.
     });
     res.status(200).json(quizList);
   } catch (err) {
@@ -57,10 +60,9 @@ exports.attemptedQuizes = async (req, res) => {
   try {
     let quizList = [];
     req.cls.quizes.forEach((quiz) => {
-      quiz.marksObtained.forEach((obj) => {
-        console.log(obj.user + " " + req.user.id);
-        if (obj.user === req.user.id) {
-          quiz.marksObtained = obj.marksObtained;
+      quiz.scores.forEach((score) => {
+        // console.log(score.user + " " + req.user.id);
+        if (score.user === req.user.id) {
           quizList.push(quiz);
           break;
         }

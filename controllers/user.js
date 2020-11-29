@@ -8,7 +8,7 @@ const config = require("config");
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ error: errors.array() });
   }
 
   const { fname, lname, email, password, about } = req.body;
@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ errors: [{ msg: "User already exists" }] });
+      return res.status(400).json({ msg: "User already exists" });
     }
 
     user = new User({
@@ -25,6 +25,7 @@ exports.signup = async (req, res) => {
       email,
       password,
       about,
+      attemptedQuizes: [],
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -53,7 +54,7 @@ exports.getUserById = async (req, res, next, id) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
     if (error.kind == "ObjectId") return res.status(400).json({ msg: "User not found." });
     res.status(500).send("Server ERROR!!!");
   }
@@ -70,10 +71,10 @@ exports.updateUser = async (req, res) => {
       { $set: req.body },
       { new: true, useFindAndModify: false, upsert: false }
     );
-    console.log(user);
+    // console.log(user);
     res.status(200).json(user);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ error: "Internal server ERROR!!!" });
   }
 };

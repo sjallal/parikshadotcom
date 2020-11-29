@@ -5,7 +5,7 @@ const Class = require("../models/Class");
 exports.createClass = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ error: errors.array() });
   }
   const { className, description } = req.body;
   try {

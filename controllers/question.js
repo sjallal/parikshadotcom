@@ -14,7 +14,7 @@ exports.createQuestion = async (req, res) => {
     console.log(newQuestion);
     await newQuestion.save();
     req.quiz.questions.push(newQuestion._id);
-    req.quiz.questions.marks += marks;
+    req.quiz.totalMarks += marks;
     await req.quiz.save();
     res.status(200).json({ quiz: req.quiz });
   } catch (err) {
@@ -42,6 +42,7 @@ exports.getQuestionById = async (req, res, next, questionId) => {
     req.question = question;
     next();
   } catch (err) {
+    if (err.kind == "ObjectId") return res.status(400).json({ msg: "Question not found." });
     res.status(500).json({ error: "Internal server error." });
   }
 };

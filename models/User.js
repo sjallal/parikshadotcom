@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   },
   lname: {
     type: String,
+    default: "",
   },
   email: {
     type: String,
@@ -20,6 +21,26 @@ const userSchema = mongoose.Schema({
   about: {
     type: String,
   },
+  totalPercentageScore: {
+    type: Number,
+    default: 0,
+  },
+  totalQuizesAttempted: {
+    type: Number,
+    default: 0,
+  },
+  attemptedQuizes: [
+    {
+      quiz: {
+        type: mongoose.Types.ObjectId,
+        ref: "quiz",
+      },
+      score: {
+        type: Number,
+        default: 0,
+      },
+    },
+  ],
 });
 
 module.exports = User = mongoose.model("user", userSchema);

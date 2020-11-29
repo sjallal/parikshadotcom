@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const quizSchema = mongoose.Schema({
-  // className: {
-  //   type: mongoose.Types.ObjectId,
-  //   ref: "class",
-  // },
+  classId: {
+    type: mongoose.Types.ObjectId,
+    ref: "class",
+  },
   quizName: {
     type: String,
     required: true,
@@ -14,6 +14,7 @@ const quizSchema = mongoose.Schema({
   },
   totalMarks: {
     type: Number,
+    default: 0,
   },
   questions: [
     {
@@ -21,13 +22,16 @@ const quizSchema = mongoose.Schema({
       ref: "question",
     },
   ],
-  marksObtained: [
+  scores: [
     {
       user: {
         type: mongoose.Types.ObjectId,
         ref: "user",
       },
-      marksObtained: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   ],
 });
