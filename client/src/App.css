@@ -13,6 +13,9 @@ body {
 img {
   width: 100%;
 }
+input {
+  font-size: medium;
+}
 #page {
   margin-bottom: 30px;
 }
@@ -22,6 +25,13 @@ img {
 }
 button {
   cursor: pointer;
+  font-size: larger;
+  text-transform: uppercase;
+}
+.form-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 4px;
 }
 
 /* NAVBAR */

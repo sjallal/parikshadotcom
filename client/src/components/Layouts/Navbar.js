@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -6,39 +7,39 @@ export const Navbar = () => {
       <div className="container">
         <div className="row center-xs end-sm end-md end-lg end-lg middle-xs middle-sm middle-md middle-lg">
           <div className="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-            <a href="index.html">
+            <Link to="/">
               <h1>
                 <span className="primary-text">Pariksha</span>.com
               </h1>
-            </a>
+            </Link>
           </div>
           <div className="col-xs-12 col-sm-8 col-md-10 col-lg-10">
             <nav id="navbar">
               <ul>
                 <li>
-                  <a href="signin.html">
+                  <Link to="/signin">
                     <i className="fas fa-sign-in-alt"></i> SignIn
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="signup.html">
+                  <Link to="/signup">
                     <i className="fas fa-user-plus"></i> SignUp
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="classes.html">
+                  <Link to="/classes">
                     <i className="fas fa-graduation-cap"></i> Classes
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="profile.html">
+                  <Link to="/profile">
                     <i className="fas fa-user-circle"></i> Profile
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="#">
                     <i className="fas fa-sign-out-alt"></i> SignOut
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
