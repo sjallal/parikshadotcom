@@ -239,3 +239,12 @@ form li {
   border: 2px solid #079992;
   margin-bottom: 5px;
 }
+
+.alert {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  background-color: red;
+  color: white;
+}
