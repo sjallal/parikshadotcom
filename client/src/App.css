@@ -249,3 +249,27 @@ form li {
   border: 2px solid #079992;
   margin-bottom: 5px;
 }
+
+.alert-danger {
+  border: 2px solid black;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  max-width: 60%;
+  background-color: rgb(230, 5, 5);
+  color: white;
+  text-align: center;
+}
+
+.alert-success {
+  border: 2px solid black;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  max-width: 60%;
+  background-color: rgb(25, 0, 255);
+  color: white;
+  text-align: center;
+}
