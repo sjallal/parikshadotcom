@@ -8,7 +8,7 @@ const config = require("config");
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ error: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { fname, lname, email, password, about } = req.body;
@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ errors: [{ msg: "User already exists." }] });
     }
 
     user = new User({

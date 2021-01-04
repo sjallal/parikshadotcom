@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from "react";
-// import axios from "axios";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { setAlert } from "../../actions/alert";
+import { signIn } from "../../actions/auth";
 
-const SignIn = () => {
+const SignIn = ({ signIn }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,19 +19,7 @@ const SignIn = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    // const config = {
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    // };
-    // const body = JSON.stringify(formData);
-    // try {
-    //   const res = await axios.post("api/auth", body, config);
-    //   console.log(res.data);
-    // } catch (err) {
-    //   console.error(err.response.data);
-    // }
-    console.log("SUCCESS");
+    signIn({ email, password });
   };
 
   return (
@@ -82,4 +73,8 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  signIn: PropTypes.func.isRequired,
+};
+
+export default connect(null, { signIn })(SignIn);
