@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
 import { signIn } from "../../actions/auth";
 
 const SignIn = ({ signIn }) => {
