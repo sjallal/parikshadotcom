@@ -1,7 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logout } from "../../actions/auth";
 
-const Navbar = () => {
+const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
+  const authLinks = (
+    <ul>
+      <li>
+        <Link to='/classes'>
+          <i className='fas fa-graduation-cap'></i> Classes
+        </Link>
+      </li>
+      <li>
+        <Link to='/profile'>
+          <i className='fas fa-user-circle'></i> Profile
+        </Link>
+      </li>
+      <li>
+        <Link to='/signin' onClick={logout}>
+          <i className='fas fa-sign-out-alt'></i> SignOut
+        </Link>
+      </li>
+    </ul>
+  );
+  const guestLinks = (
+    <ul>
+      <li>
+        <Link to='/signin'>
+          <i className='fas fa-sign-in-alt'></i> SignIn
+        </Link>
+      </li>
+      <li>
+        <Link to='/signup'>
+          <i className='fas fa-user-plus'></i> SignUp
+        </Link>
+      </li>
+    </ul>
+  );
   return (
     <header id='main-header'>
       <div className='container'>
@@ -14,35 +50,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className='col-xs-12 col-sm-8 col-md-10 col-lg-10'>
-            <nav id='navbar'>
-              <ul>
-                <li>
-                  <Link to='/signin'>
-                    <i className='fas fa-sign-in-alt'></i> SignIn
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/signup'>
-                    <i className='fas fa-user-plus'></i> SignUp
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/classes'>
-                    <i className='fas fa-graduation-cap'></i> Classes
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/profile'>
-                    <i className='fas fa-user-circle'></i> Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link to='#'>
-                    <i className='fas fa-sign-out-alt'></i> SignOut
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <nav id='navbar'>{!loading && (isLoggedIn ? authLinks : guestLinks)}</nav>
           </div>
         </div>
       </div>
@@ -50,4 +58,13 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
