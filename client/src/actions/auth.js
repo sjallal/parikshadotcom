@@ -1,6 +1,31 @@
 import axios from "axios";
+import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alert";
-import { SIGNIN_FAIL, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_SUCCESS } from "./types";
+import {
+  AUTH_ERROR,
+  LOGOUT,
+  SIGNIN_FAIL,
+  SIGNIN_SUCCESS,
+  SIGNUP_FAIL,
+  SIGNUP_SUCCESS,
+  USER_LOADED,
+} from "./types";
+
+export const loadUser = () => async (dispatch) => {
+  if (localStorage.token) setAuthToken(localStorage.token);
+
+  try {
+    const res = await axios.get("/api/auth");
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
 
 export const signUp = ({ fname, lname, email, password, about }) => async (dispatch) => {
   const config = {
@@ -50,4 +75,10 @@ export const signIn = ({ email, password }) => async (dispatch) => {
       type: SIGNIN_FAIL,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
 };

@@ -1,4 +1,12 @@
-import { SIGNIN_FAIL, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_SUCCESS } from "../actions/types";
+import {
+  AUTH_ERROR,
+  LOGOUT,
+  SIGNIN_FAIL,
+  SIGNIN_SUCCESS,
+  SIGNUP_FAIL,
+  SIGNUP_SUCCESS,
+  USER_LOADED,
+} from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -10,6 +18,13 @@ const initialState = {
 export default function foo(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isLoggedIn: true,
+        loading: false,
+        user: payload,
+      };
     case SIGNUP_SUCCESS:
     case SIGNIN_SUCCESS:
       localStorage.setItem("token", payload.token);
@@ -21,9 +36,12 @@ export default function foo(state = initialState, action) {
       };
     case SIGNUP_FAIL:
     case SIGNIN_FAIL:
+    case AUTH_ERROR:
+    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,
+        token: null,
         isLoggedIn: false,
         loading: false,
       };
