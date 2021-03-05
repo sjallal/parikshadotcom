@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
 import { signIn } from "../../actions/auth";
 
 const SignIn = ({ signIn }) => {
@@ -24,46 +23,46 @@ const SignIn = ({ signIn }) => {
 
   return (
     <Fragment>
-      <section id='sub-header'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+      <section id="sub-header">
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <h1>SignIn</h1>
             </div>
           </div>
         </div>
       </section>
 
-      <section id='page' className='signin'>
-        <div className='container'>
-          <div className='row center-xs center-sm center-md center-lg'>
-            <div className='col-xs-10 col-sm-10 col-md-10 col-lg-10'>
+      <section id="page" className="signin">
+        <div className="container">
+          <div className="row center-xs center-sm center-md center-lg">
+            <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10">
               <h2>
-                <span className='primary-text'>Please</span> provide the login credentials
+                <span className="primary-text">Please</span> provide the login credentials
               </h2>
               <form onSubmit={(e) => onSubmit(e)}>
-                <div className='form-group'>
+                <div className="form-group">
                   <input
-                    type='email'
-                    name='email'
-                    placeholder='Email'
+                    type="email"
+                    name="email"
+                    placeholder="Email"
                     value={email}
                     onChange={(e) => onChange(e)}
                     required
                   />
                 </div>
-                <div className='form-group'>
+                <div className="form-group">
                   <input
-                    type='password'
-                    name='password'
-                    placeholder='Password'
+                    type="password"
+                    name="password"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => onChange(e)}
                     required
-                    minLength='4'
+                    minLength="4"
                   />
                 </div>
-                <button type='submit'>SignIn</button>
+                <button type="submit">SignIn</button>
               </form>
             </div>
           </div>
