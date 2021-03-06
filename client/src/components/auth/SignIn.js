@@ -2,13 +2,14 @@ import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { signIn } from "../../actions/auth";
+import { Redirect } from "react-router-dom";
 
-const SignIn = ({ signIn }) => {
+const SignIn = ({ signIn, isLoggedIn }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
- 
+
   const { email, password } = formData;
 
   const onChange = (e) => {
@@ -20,6 +21,11 @@ const SignIn = ({ signIn }) => {
     // console.log(formData);
     signIn({ email, password });
   };
+
+  // Redirect if logged in..
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Fragment>
@@ -72,8 +78,13 @@ const SignIn = ({ signIn }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
 SignIn.propTypes = {
   signIn: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool,
 };
 
-export default connect(null, { signIn })(SignIn);
+export default connect(mapStateToProps, { signIn })(SignIn);
