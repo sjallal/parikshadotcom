@@ -8,18 +8,18 @@ const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to='/classes'>
-          <i className='fas fa-graduation-cap'></i> Classes
+        <Link to="/classes">
+          <i className="fas fa-graduation-cap"></i> Classes
         </Link>
       </li>
       <li>
-        <Link to='/profile'>
-          <i className='fas fa-user-circle'></i> Profile
+        <Link to="/user">
+          <i className="fas fa-user-circle"></i> Profile
         </Link>
       </li>
       <li>
-        <Link to='/signin' onClick={logout}>
-          <i className='fas fa-sign-out-alt'></i> SignOut
+        <Link to="/signin" onClick={logout}>
+          <i className="fas fa-sign-out-alt"></i> SignOut
         </Link>
       </li>
     </ul>
@@ -27,30 +27,30 @@ const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/signin'>
-          <i className='fas fa-sign-in-alt'></i> SignIn
+        <Link to="/signin">
+          <i className="fas fa-sign-in-alt"></i> SignIn
         </Link>
       </li>
       <li>
-        <Link to='/signup'>
-          <i className='fas fa-user-plus'></i> SignUp
+        <Link to="/signup">
+          <i className="fas fa-user-plus"></i> SignUp
         </Link>
       </li>
     </ul>
   );
   return (
-    <header id='main-header'>
-      <div className='container'>
-        <div className='row center-xs end-sm end-md end-lg end-lg middle-xs middle-sm middle-md middle-lg'>
-          <div className='col-xs-12 col-sm-4 col-md-2 col-lg-2'>
-            <Link to='/'>
+    <header id="main-header">
+      <div className="container">
+        <div className="row center-xs end-sm end-md end-lg end-lg middle-xs middle-sm middle-md middle-lg">
+          <div className="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+            <Link to="/">
               <h1>
-                <span className='primary-text'>Pariksha</span>.com
+                <span className="primary-text">Pariksha</span>.com
               </h1>
             </Link>
           </div>
-          <div className='col-xs-12 col-sm-8 col-md-10 col-lg-10'>
-            <nav id='navbar'>{!loading && (isLoggedIn ? authLinks : guestLinks)}</nav>
+          <div className="col-xs-12 col-sm-8 col-md-10 col-lg-10">
+            <nav id="navbar">{!loading && (isLoggedIn ? authLinks : guestLinks)}</nav>
           </div>
         </div>
       </div>

@@ -13,6 +13,8 @@ import store from "./store";
 import Alert from "./components/layouts/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
+import PrivateRoute from "./components/layouts/routing/PrivateRoute";
+import User from "./components/layouts/User";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -26,11 +28,12 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar />
-          <Route exact path='/' component={Landing} />
+          <Route exact path="/" component={Landing} />
           <Alert />
           <Switch>
-            <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/signin' component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/signin" component={SignIn} />
+            <PrivateRoute exact path="/user" component={User} />
           </Switch>
 
           <Footer />
