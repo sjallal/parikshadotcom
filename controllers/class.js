@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 const Class = require("../models/Class");
-
+console;
 exports.createClass = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -54,7 +54,7 @@ exports.classesCreated = async (req, res) => {
 exports.classesEnrolled = async (req, res) => {
   try {
     const classes = await Class.find();
-    console.log(classes);
+    // console.log(classes);
     let classList = [];
     classes.forEach((cls) => {
       if (cls.enrolledStudents.indexOf(req.user.id) !== -1) classList.push(cls);
@@ -86,16 +86,30 @@ exports.classesNotEnrolled = async (req, res) => {
 exports.enrollIntoClass = async (req, res) => {
   try {
     if (req.cls.enrolledTeachers.indexOf(req.user.id) !== -1)
-      return res.status(400).json({ msg: "You can not enroll into a class created by yourself." });
+      return res
+        .status(400)
+        .json({ msg: "You can not enroll into a class created by yourself." });
     if (req.cls.enrolledStudents.indexOf(req.user.id) !== -1)
       return res.status(400).json({ msg: "Already Enrolled!" });
     req.cls.enrolledStudents.push(req.user.id);
     await req.cls.save();
-    console.log(req.cls);
+    // console.log(req.cls);
     res.status(200).json(req.cls);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error!!!" });
+  }
+};
+
+exports.unEnrollFromClass = async (req, res) => {
+  try {
+    let index = req.cls.enrolledStudents.indexOf(req.user.id);
+    req.cls.enrolledStudents.splice(index, 1);
+    await req.cls.save();
+    res.status(200).json(req.cls);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal sever error!!!" });
   }
 };
 
@@ -107,7 +121,8 @@ exports.getClassById = async (req, res, next, classId) => {
     next();
   } catch (err) {
     console.error(err.message);
-    if (err.kind == "ObjectId") return res.status(400).json({ msg: "Class not found." });
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Class not found." });
     res.status(500).json({ error: "Internal server error." });
   }
 };

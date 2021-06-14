@@ -16,12 +16,13 @@ const quizSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  questions: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "question",
-    },
-  ],
+  // questions: [
+  //   {
+  //     type: mongoose.Types.ObjectId,
+  //     ref: "question",
+  //   },
+  // ],
+  questions: [],
   scores: [
     {
       user: {

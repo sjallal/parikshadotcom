@@ -46,12 +46,22 @@ const User = ({ user }) => {
                 <div>
                   <label for="email">Total Percentage Score</label>
                   <br />
-                  <input type="number" name="tps" id="" value={user.totalPercentageScore} />
+                  <input
+                    type="number"
+                    name="tps"
+                    id=""
+                    value={user.totalPercentageScore}
+                  />
                 </div>
                 <div>
                   <label for="email">Total Quizes Attempted</label>
                   <br />
-                  <input type="number" name="tqa" id="" value={user.totalQuizesAttempted} />
+                  <input
+                    type="number"
+                    name="tqa"
+                    id=""
+                    value={user.totalQuizesAttempted}
+                  />
                 </div>
                 <button type="submit">Save Profile</button>
               </form>

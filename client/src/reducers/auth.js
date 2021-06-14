@@ -21,8 +21,8 @@ export default function foo(state = initialState, action) {
     case USER_LOADED:
       return {
         ...state,
-        isLoggedIn: true,
         loading: false,
+        isLoggedIn: true,
         user: payload,
       };
     case SIGNUP_SUCCESS:
@@ -44,6 +44,7 @@ export default function foo(state = initialState, action) {
         token: null,
         isLoggedIn: false,
         loading: false,
+        user: null,
       };
     default:
       return state;

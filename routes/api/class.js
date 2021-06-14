@@ -11,6 +11,7 @@ const {
   classesEnrolled,
   enrollIntoClass,
   getAllClasses,
+  unEnrollFromClass,
 } = require("../../controllers/class");
 const isLoggedIn = require("../../middlewares/isLoggedIn");
 
@@ -54,5 +55,10 @@ router.get("/enrolled", isLoggedIn, classesEnrolled);
 // @desc:    Enroll into class.
 // @access:  Private
 router.put("/enroll/:classId", isLoggedIn, enrollIntoClass);
+
+// @route:   PUT api/class/unenroll/:classId
+// @desc:    Un-enroll from a class.
+// @access:  Private
+router.put("/unenroll/:classId", isLoggedIn, unEnrollFromClass);
 
 module.exports = router;

@@ -3,12 +3,17 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import { getClassesNotEnrolled } from "../../actions/classes";
 
-const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
+const Navbar = ({
+  auth: { isLoggedIn, loading },
+  logout,
+  getClassesNotEnrolled,
+}) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to="/classes">
+        <Link to="/classes" onClick={getClassesNotEnrolled}>
           <i className="fas fa-graduation-cap"></i> Classes
         </Link>
       </li>
@@ -50,7 +55,9 @@ const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
             </Link>
           </div>
           <div className="col-xs-12 col-sm-8 col-md-10 col-lg-10">
-            <nav id="navbar">{!loading && (isLoggedIn ? authLinks : guestLinks)}</nav>
+            <nav id="navbar">
+              {!loading && (isLoggedIn ? authLinks : guestLinks)}
+            </nav>
           </div>
         </div>
       </div>
@@ -61,10 +68,13 @@ const Navbar = ({ auth: { isLoggedIn, loading }, logout }) => {
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  getClassesNotEnrolled: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, getClassesNotEnrolled })(
+  Navbar
+);

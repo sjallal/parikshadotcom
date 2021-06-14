@@ -5,7 +5,6 @@ import Landing from "./components/layouts/Landing";
 import Navbar from "./components/layouts/Navbar";
 import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
-import Footer from "./components/layouts/Footer";
 
 // To be able to use redux with react:
 import { Provider } from "react-redux";
@@ -14,7 +13,12 @@ import Alert from "./components/layouts/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
 import PrivateRoute from "./components/layouts/routing/PrivateRoute";
-import User from "./components/layouts/User";
+import User from "./components/auth/User";
+import Classes from "./components/classes/Classes";
+import Quizzes from "./components/quizzes/Quizzes";
+import AttemptedUnattemptedQuizzes from "./components/quizzes/AttemptedUnattemptedQuizzes";
+import Questions from "./components/questions/Questions";
+import CreateQuiz from "./components/quizzes/CreateQuiz";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -34,9 +38,16 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <PrivateRoute exact path="/user" component={User} />
+            <PrivateRoute exact path="/classes" component={Classes} />
+            <PrivateRoute exact path="/quizzes" component={Quizzes} />
+            <PrivateRoute
+              exact
+              path="/quizzes/student"
+              component={AttemptedUnattemptedQuizzes}
+            />
+            <PrivateRoute exact path="/questions" component={Questions} />
+            <PrivateRoute exact path="/create-quiz" component={CreateQuiz} />
           </Switch>
-
-          <Footer />
         </Fragment>
       </Router>
     </Provider>

@@ -7,6 +7,9 @@ body {
 .container {
   margin: auto;
 }
+.container a {
+  text-decoration: none;
+}
 .primary-text {
   color: #079992;
 }
@@ -128,6 +131,12 @@ button {
 #main-footer {
   background: #079992;
   color: #fff;
+  /* position: fixed;
+  left: 0;
+  bottom: 0; */
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
 }
 
 /* SIGNUP SIGNIN PROFILE */
@@ -189,6 +198,7 @@ form li {
 #classes-nav .col:hover,
 .current {
   background: #000;
+  cursor: pointer;
 }
 
 .classes .row {
@@ -238,11 +248,34 @@ form li {
   color: #fff;
   padding: 3px;
 }
+.col-question {
+  background: #067a75;
+  color: #fff;
+  padding: 2px;
+}
 .col-btn:hover {
   background: #222;
   color: #fff;
   padding: 3px;
   cursor: pointer;
+}
+
+.col-opt {
+  cursor: pointer;
+}
+
+.col-opt-inp {
+}
+
+.col-opt:hover {
+  cursor: pointer;
+  background: rgb(49, 49, 49);
+  color: #fff;
+}
+.selected-opt {
+  cursor: pointer;
+  background: rgb(0, 60, 117);
+  color: #fff;
 }
 
 .question-list {
