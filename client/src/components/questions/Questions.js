@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // import Spinner from "../layouts/Spinner";
 import Question from "./Question";
+import { submitQuiz } from "../../actions/quiz";
+import { Link } from "react-router-dom";
 
 // const sampleQuestions = [
 //   {
@@ -54,7 +56,16 @@ import Question from "./Question";
 //     marks: 10,
 //   },
 // ];
-function Questions({ quiz: { quizName, description, totalMarks, questions } }) {
+function Questions({ quiz, submitQuiz }) {
+  // const [totalMarksScored, setTotalMarksScored] = useState(0);
+  let total = 0;
+  const getMarks = (marks) => {
+    console.log(`marks: ${marks}`);
+    // setTotalMarksScored(+totalMarksScored + +marks);
+    total += +marks;
+    console.log(`total: ${total}`);
+  };
+
   return (
     <Fragment>
       <section id="page" className="classes">
@@ -62,21 +73,35 @@ function Questions({ quiz: { quizName, description, totalMarks, questions } }) {
           <div className="row center-xs center-sm center-md center-lg middle-xs middle-sm middle-md middle-lg">
             <div className="col-btn col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <h3>
-                {quizName} [Total Marks: {totalMarks}]
+                {quiz.quizName} [Total Marks: {quiz.totalMarks}]
               </h3>
             </div>
             <div className="col-btn col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <h4>{description}</h4>
+              <h4>{quiz.description}</h4>
             </div>
           </div>
-          {questions.map((question) => {
-            return <Question key={question._id} question={question} />;
+          {quiz.questions.map((question) => {
+            return (
+              <Question
+                key={question._id}
+                question={question}
+                getMarks={getMarks}
+              />
+            );
           })}
-          <div className="row center-xs center-sm center-md center-lg middle-xs middle-sm middle-md middle-lg">
+          <Link
+            to="/quizzes/student"
+            className="row center-xs center-sm center-md center-lg middle-xs middle-sm middle-md middle-lg"
+            onClick={() => {
+              // console.log(`totalMarksScored: ${total}`);
+              submitQuiz(total, quiz);
+              return;
+            }}
+          >
             <div className="col-btn col-xs-12 col-sm-12 col-md-12 col-lg-12">
               Submit Quiz
             </div>
-          </div>
+          </Link>
         </div>
       </section>
     </Fragment>
@@ -85,10 +110,11 @@ function Questions({ quiz: { quizName, description, totalMarks, questions } }) {
 
 Questions.propTypes = {
   quiz: PropTypes.object.isRequired,
+  submitQuiz: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   quiz: state.quiz.quiz,
 });
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, { submitQuiz })(Questions);

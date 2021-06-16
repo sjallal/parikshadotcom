@@ -1,5 +1,7 @@
 import {
   ATTEMPTED_UNATTEMPTED_QUIZZES,
+  ATTEMPT_QUIZ,
+  CREATE_QUIZ,
   GET_QUIZ,
   QUIZ_ERROR,
   SELECT_ATTEMPTED_QUIZ,
@@ -37,12 +39,30 @@ export default function foo(state = initialState, action) {
         loading: false,
         error: {},
       };
+    case CREATE_QUIZ:
+      return {
+        ...state,
+        quizzes: [...state.quizzes, payload],
+        loading: false,
+        error: {},
+      };
 
     case ATTEMPTED_UNATTEMPTED_QUIZZES:
       return {
         ...state,
         attemptedQuizzes: payload.attemptedQuizList,
         unattemptedQuizzes: payload.unAttemptedQuizList,
+        error: {},
+        loading: false,
+      };
+
+    case ATTEMPT_QUIZ:
+      return {
+        ...state,
+        attemptedQuizzes: [...state.attemptedQuizzes, payload],
+        unattemptedQuizzes: state.unattemptedQuizzes.filter(
+          (quiz) => quiz._id !== payload._id
+        ),
         error: {},
         loading: false,
       };

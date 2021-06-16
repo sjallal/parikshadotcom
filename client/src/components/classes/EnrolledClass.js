@@ -14,15 +14,24 @@ function EnrolledClass({ classs, unEnrollClass, setCls }) {
         </div>
         <Link
           to="/quizzes/student"
-          className="col-btn col-xs-6 col-sm-6 col-md-6 col-lg-6"
+          className="col-btn col-xs-4 col-sm-4 col-md-4 col-lg-4"
           onClick={() => {
             setCls(classs);
           }}
         >
           <i className="fas fa-edit"> QUIZZES</i>
         </Link>
+        <Link
+          to="/leaderboard"
+          className="col-btn col-xs-4 col-sm-4 col-md-4 col-lg-4"
+          onClick={() => {
+            setCls(classs);
+          }}
+        >
+          <i className="fas fa-edit"> LEADERBOARD</i>
+        </Link>
         <div
-          className="col-btn col-xs-6 col-sm-6 col-md-6 col-lg-6"
+          className="col-btn col-xs-4 col-sm-4 col-md-4 col-lg-4"
           onClick={() => {
             unEnrollClass(classs._id);
           }}

@@ -14,6 +14,7 @@ import {
   JOIN_CLASS,
   UNENROLL_CLASS,
   SET_CLS,
+  CREATE_CLASS,
 } from "./types";
 
 export const selectClassesNotEnrolled = () => async (dispatch) => {
@@ -145,4 +146,47 @@ export const setCls = (cls) => async (dispatch) => {
     type: SET_CLS,
     payload: cls,
   });
+};
+
+export const createClass = (className, description) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    className,
+    description,
+  });
+  try {
+    const res = await axios.post("/api/class", body, config);
+    console.log(res.data);
+    dispatch({
+      type: CREATE_CLASS,
+      payload: res.data,
+    });
+    dispatch(setAlert(`Class created`, "success"));
+  } catch (err) {
+    // console.log(err.response);
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+  }
+};
+
+// [NOT IN USE]
+export const leaderboard = (classId) => async (dispatch) => {
+  try {
+    const res = axios.get(`/api/leaderboard/${classId}`);
+    console.log(res);
+  } catch (error) {
+    dispatch({
+      type: CLASS_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
 };

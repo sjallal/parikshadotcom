@@ -3,13 +3,30 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-const Question = ({ question: { question, options, marks } }) => {
+const Question = ({
+  question: { question, options, marks, correctAns },
+  getMarks,
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
+  const [flag, setFlag] = useState(false);
+  let opted = "";
+
+  const setMarks = () => {
+    // console.log(`opted: ${opted}`);
+    // console.log(`correctAns: ${correctAns}`);
+    if (opted === correctAns && flag === false) {
+      setFlag(true);
+      getMarks(marks);
+    } else if (opted !== correctAns && flag === true) {
+      setFlag(false);
+      getMarks(-marks);
+    }
+  };
 
   return (
     <Fragment>
-      <div class="row middle-xs middle-sm middle-md middle-lg">
-        <div class="col-question col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div className="row middle-xs middle-sm middle-md middle-lg">
+        <div className="col-question col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>
             {question} [Marks: {marks}]
           </h4>
@@ -18,26 +35,18 @@ const Question = ({ question: { question, options, marks } }) => {
         {options.map((option) => (
           <Fragment key={uuidv4()}>
             <div
-              class={`${
+              className={`${
                 selectedOption === option ? `selected-opt` : `col-opt`
               } col-xs-12 col-sm-12 col-md-12 col-lg-12`}
-              onClick={() => setSelectedOption(option)}
+              onClick={() => {
+                setSelectedOption(option);
+                opted = option;
+                setMarks();
+                return;
+              }}
             >
               <h5>{option}</h5>
             </div>
-            {/* <input
-              type="checkbox"
-              name="vehicle1"
-              value="Bike"
-              class="col-xs-1 col-sm-1 col-md-1 col-lg-1"
-              onClickCapture={() => setSelectedOption(option.option)}
-            />
-            <label
-              htmlFor="vehicle1"
-              class="col-xs-10 col-sm-10 col-md-10 col-lg-10"
-            >
-              <h5>{option.option}</h5>
-            </label> */}
           </Fragment>
         ))}
       </div>
@@ -47,6 +56,7 @@ const Question = ({ question: { question, options, marks } }) => {
 
 Question.propTypes = {
   question: PropTypes.object.isRequired,
+  getMarks: PropTypes.func.isRequired,
 };
 
 export default connect(null, {})(Question);

@@ -9,6 +9,7 @@ import {
   JOIN_CLASS,
   UNENROLL_CLASS,
   SET_CLS,
+  CREATE_CLASS,
 } from "../actions/types";
 
 const initialState = {
@@ -65,6 +66,13 @@ export default function foo(state = initialState, action) {
         ...state,
         error: payload.msg,
         loading: false,
+      };
+    case CREATE_CLASS:
+      return {
+        ...state,
+        loading: false,
+        classesCreated: [...state.classesCreated, payload],
+        error: {},
       };
     case JOIN_CLASS:
       return {

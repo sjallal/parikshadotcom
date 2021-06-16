@@ -19,6 +19,7 @@ import Quizzes from "./components/quizzes/Quizzes";
 import AttemptedUnattemptedQuizzes from "./components/quizzes/AttemptedUnattemptedQuizzes";
 import Questions from "./components/questions/Questions";
 import CreateQuiz from "./components/quizzes/CreateQuiz";
+import LeaderBoard from "./components/classes/LeaderBoard";
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -47,6 +48,7 @@ const App = () => {
             />
             <PrivateRoute exact path="/questions" component={Questions} />
             <PrivateRoute exact path="/create-quiz" component={CreateQuiz} />
+            <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
           </Switch>
         </Fragment>
       </Router>

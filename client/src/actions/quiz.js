@@ -2,6 +2,8 @@ import axios from "axios";
 import { setAlert } from "./alert";
 import {
   ATTEMPTED_UNATTEMPTED_QUIZZES,
+  ATTEMPT_QUIZ,
+  CREATE_QUIZ,
   GET_QUIZ,
   QUIZ_ERROR,
   SELECT_ATTEMPTED_QUIZ,
@@ -72,9 +74,35 @@ export const createQuiz = (quiz, classId) => async (dispatch) => {
     totalMarks,
   });
   try {
-    await axios.post(`/api/quiz/${classId}`, body, config);
+    const res = await axios.post(`/api/quiz/${classId}`, body, config);
+    dispatch({
+      type: CREATE_QUIZ,
+      payload: res.data,
+    });
     dispatch(setAlert(`${quizName} - Quiz Created`, "success"));
   } catch (error) {
     dispatch(setAlert(error.response.data, "danger"));
+  }
+};
+
+export const submitQuiz = (score, quiz) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    score: score,
+  });
+  try {
+    await axios.put(`/api/quiz/submit/${quiz._id}`, body, config);
+    // console.log(res.data);
+    dispatch({
+      type: ATTEMPT_QUIZ,
+      payload: quiz,
+    });
+    dispatch(setAlert(`Quiz Attempted`, "success"));
+  } catch (error) {
+    dispatch(setAlert(error.response.data.msg, "danger"));
   }
 };

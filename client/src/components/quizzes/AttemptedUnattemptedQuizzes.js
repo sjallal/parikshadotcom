@@ -7,6 +7,7 @@ import UnattemptedQuiz from "./UnattemptedQuiz";
 import QuizNavbar from "./QuizNavbar";
 import Spinner from "../layouts/Spinner";
 import AttemptedQuiz from "./AttemptedQuiz";
+import { Link } from "react-router-dom";
 
 function AttemptedUnattemptedQuizzes({
   cls,
@@ -23,6 +24,20 @@ function AttemptedUnattemptedQuizzes({
       <QuizNavbar />
       <section id="page" className="classes">
         <div className="container">
+          {/* <div className="row center-xs center-sm center-md center-lg middle-xs middle-sm middle-md middle-lg">
+            <Link
+              to="/classes"
+              className="col-btn col-xs-6 col-sm-6 col-md-6 col-lg-6"
+            >
+              <h4>{cls.className}</h4>
+            </Link>
+            <Link
+              to="/leaderboard"
+              className="col-btn col-xs-6 col-sm-6 col-md-6 col-lg-6"
+            >
+              <h4>Leaderboard</h4>
+            </Link>
+          </div> */}
           {navbarIndex === 0 ? (
             unattemptedQuizzes.length < 1 ? (
               <NoClasses />

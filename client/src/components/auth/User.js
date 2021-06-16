@@ -24,43 +24,69 @@ const User = ({ user }) => {
               </h2>
               <form>
                 <div>
-                  <label for="fname">First Name</label>
+                  <label htmlFor="fname">First Name</label>
                   <br />
-                  <input type="text" name="fname" id="" value={user.fname} />
+                  <input
+                    type="text"
+                    name="fname"
+                    id=""
+                    value={user.fname}
+                    readOnly
+                  />
                 </div>
                 <div>
-                  <label for="lname">Last Name</label>
+                  <label htmlFor="lname">Last Name</label>
                   <br />
-                  <input type="text" name="lname" id="" value={user.lname} />
+                  <input
+                    type="text"
+                    name="lname"
+                    id=""
+                    value={user.lname}
+                    readOnly
+                  />
                 </div>
                 <div>
-                  <label for="email">Email</label>
+                  <label htmlFor="email">Email</label>
                   <br />
-                  <input type="email" name="email" id="" value={user.email} />
+                  <input
+                    type="email"
+                    name="email"
+                    id=""
+                    value={user.email}
+                    readOnly
+                  />
                 </div>
                 <div>
-                  <label for="email">About</label>
+                  <label htmlFor="email">About</label>
                   <br />
-                  <input type="text" name="about" id="" value={user.about} />
+                  <input
+                    type="text"
+                    name="about"
+                    id=""
+                    value={user.about}
+                    readOnly
+                  />
                 </div>
                 <div>
-                  <label for="email">Total Percentage Score</label>
+                  <label htmlFor="email">Total Percentage Score</label>
                   <br />
                   <input
                     type="number"
                     name="tps"
                     id=""
                     value={user.totalPercentageScore}
+                    readOnly
                   />
                 </div>
                 <div>
-                  <label for="email">Total Quizes Attempted</label>
+                  <label htmlFor="email">Total Quizes Attempted</label>
                   <br />
                   <input
                     type="number"
                     name="tqa"
                     id=""
                     value={user.totalQuizesAttempted}
+                    readOnly
                   />
                 </div>
                 <button type="submit">Save Profile</button>
