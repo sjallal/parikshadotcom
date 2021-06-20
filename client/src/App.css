@@ -248,6 +248,18 @@ form li {
   color: #fff;
   padding: 3px;
 }
+.col-del {
+  background: #df0707;
+  color: #fff;
+  padding: 2px;
+  cursor: pointer;
+}
+.col-del:hover {
+  background: rgb(39, 39, 39);
+  color: #f8f8f8;
+  padding: 2px;
+  cursor: pointer;
+}
 .col-question {
   background: #067a75;
   color: #fff;
@@ -259,12 +271,21 @@ form li {
   padding: 3px;
   cursor: pointer;
 }
-
+.cor-ans {
+  background: #079992;
+  color: #fff;
+  padding: 3px;
+}
 .col-opt {
   cursor: pointer;
 }
 
-.col-opt-inp {
+.col-inp {
+  border: 2px solid #079992;
+  border-radius: 0%;
+  padding: 5px;
+  margin: 5px;
+  background-color: rgba(0, 255, 170, 0.103);
 }
 
 .col-opt:hover {

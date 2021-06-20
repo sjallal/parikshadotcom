@@ -1,8 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
-const User = ({ user }) => {
+import { loadUser } from "../../actions/auth";
+const User = ({ user, loadUser }) => {
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
   return (
     <Fragment>
       <section id="sub-header">
@@ -105,6 +108,7 @@ const mapStateToProps = (state) => ({
 
 User.propTypes = {
   user: PropTypes.object.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(User);
+export default connect(mapStateToProps, { loadUser })(User);

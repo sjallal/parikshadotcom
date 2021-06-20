@@ -60,10 +60,10 @@ function Questions({ quiz, submitQuiz }) {
   // const [totalMarksScored, setTotalMarksScored] = useState(0);
   let total = 0;
   const getMarks = (marks) => {
-    console.log(`marks: ${marks}`);
+    // console.log(`marks: ${marks}`);
     // setTotalMarksScored(+totalMarksScored + +marks);
     total += +marks;
-    console.log(`total: ${total}`);
+    // console.log(`total: ${total}`);
   };
 
   return (
